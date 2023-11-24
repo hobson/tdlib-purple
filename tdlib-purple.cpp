@@ -374,9 +374,9 @@ static void tgprpl_info_show (PurpleConnection *gc, const char *who)
         purple_notify_user_info_add_pair(info, _("First name"), user->first_name_.c_str());
         // TRANSLATOR: Buddy infobox, key
         purple_notify_user_info_add_pair(info, _("Last name"), user->last_name_.c_str());
-        if (!user->username_.empty()) {
+        if (!user->usernames_->active_usernames_.empty()) {
             // TRANSLATOR: Buddy infobox, key
-            purple_notify_user_info_add_pair(info, _("Username"), user->username_.c_str());
+            purple_notify_user_info_add_pair(info, _("Username"), user->usernames_->editable_username_.c_str());
         }
         if (!user->phone_number_.empty()) {
             // TRANSLATOR: Buddy infobox, key
