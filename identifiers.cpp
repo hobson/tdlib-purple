@@ -152,10 +152,14 @@ SecretChatId getSecretChatId(const td::td_api::chatTypeSecret &chatType)
 
 MessageId getReplyMessageId(const td::td_api::message &message)
 {
-        if (message.reply_to_ != nullptr) {
-        if (auto rtm = dynamic_cast<const td::td_api::messageReplyToMessage*>(message.reply_to_.get())) {
-            return MessageId(rtm->message_id_);
-        }
+    if (message.reply_to_ != nullptr) {
+	switch (message.reply_to_->get_id()) {
+	case td::td_api::messageReplyToMessage::ID:
+	    {
+		auto rtm = static_cast<const td::td_api::messageReplyToMessage*>(message.reply_to_.get());
+		return MessageId(rtm->message_id_);
+	    }
+	}
     }
 
     return MessageId(0);
